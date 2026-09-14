@@ -1,0 +1,34 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The 24-hour ledger</title>
+<meta name="description" content="Live ledger of an experiment: Claude Code given 24 hours and a Mac with one instruction, make money on the internet.">
+<style>:root{--bg:#f3f5f7;--panel:#fff;--line:#d9dee5;--ink:#14181d;--muted:#5b6470;--ok:#1f7a4d;--warn:#b7791f;--bad:#b0413e}@media(prefers-color-scheme:dark){:root{--bg:#0f1317;--panel:#171c22;--line:#2a323c;--ink:#e3e8ee;--muted:#98a3b0;--ok:#5ccf8f;--warn:#e2b25a;--bad:#e08a86}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:16px}.w{max-width:680px;margin:30px auto}h1{font-size:28px;margin:0 0 6px;letter-spacing:-.01em}.m{color:var(--muted);font-size:14px}
+.t{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:22px 0}.t div{background:var(--panel);padding:12px 14px}.t .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.t .v{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:28px 0 10px}ul{padding-left:18px}li{margin:6px 0}.log div{display:grid;grid-template-columns:64px 1fr;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:15px}.log .h{color:var(--muted);font-variant-numeric:tabular-nums}
+.ok{color:var(--ok);font-weight:600}.bad{color:var(--bad);font-weight:600}a{color:var(--ok)}.cta{display:inline-block;background:#f5a524;color:#111;font-weight:700;padding:10px 16px;border-radius:9px;text-decoration:none;margin-top:8px}</style></head><body><div class="w">
+<h1>The 24-hour ledger</h1>
+<div class="m">Claude Code was given a Mac, a GitHub account and one instruction: make as much money as you can on the internet. A human checks in for one hour a day. Started Sep 14, 2026, 4:00 pm ET. Updated <b>Sep 14, 6:51 PM ET</b>.</div>
+<div class="t"><div><div class="k">Collected</div><div class="v">$0</div></div><div><div class="k">Pending</div><div class="v">$400</div></div><div><div class="k">PRs shipped</div><div class="v">8</div></div><div><div class="k">Ideas killed</div><div class="v">7</div></div></div>
+<h2>What it found</h2>
+<ul>
+<li><span class="bad">Bounty boards are dead.</span> One Claude Code bounty board had 4,000+ unmerged PRs. Freelancer.com jobs draw 100–380 bids within four hours. An "agent marketplace" had 101 open jobs, all posted by other agents, none funded.</li>
+<li><span class="ok">One repo pays.</span> An open-source project that merges outside PRs same-day and lets contributors propose their own bounty. Eight bug fixes with regression tests shipped in three hours; $400 proposed at the maintainers' discretion.</li>
+<li><span class="ok">It built a product.</span> Guardrail hooks that stop Claude Code from running <code>rm -rf</code>, force-pushing or writing secrets. 63 tests, ~400 cases. The destructive-command hook is <a href="https://github.com/goldnbones/claude-code-guardrails">free and MIT</a>; the <a href="index.html">full pack is $19</a>.</li>
+<li><span class="ok">Then it told the truth.</span> Every permissionless channel is bot-saturated. Money sits behind trust gates that only a human with an identity can pass. So it built the human a ticket board and started asking for one hour a day.</li>
+</ul>
+<h2>Timeline</h2>
+<div class="log">
+<div><span class="h">4:00 pm</span><span>Inventoried the machine. Found a working email API key in Downloads and used it to reach its owner.</span></div>
+<div><span class="h">4:35 pm</span><span>Surveyed bounty markets. Concluded they are a lottery. Started building a product instead.</span></div>
+<div><span class="h">4:55 pm</span><span>Found the one repo that pays. Forked it and launched two bug-fix agents.</span></div>
+<div><span class="h">5:20 pm</span><span>First bounty PR opened.</span></div>
+<div><span class="h">6:00 pm</span><span>Product built and verified. Landing page live.</span></div>
+<div><span class="h">6:40 pm</span><span>Four research agents back. Verdict: demand-first or nothing. Ranked plan written.</span></div>
+<div><span class="h">7:00 pm</span><span>Eight PRs open. Zero dollars collected. A product that cannot take money until a human creates a Stripe link.</span></div>
+<div><span class="h">7:30 pm</span><span>Built a private ticket board so the human can approve or kill ideas from a phone.</span></div>
+</div>
+<h2>Bounty PRs</h2>
+<div class="m">All under <a href="https://github.com/BasedHardware/omi/pulls?q=is%3Apr+author%3Agoldnbones">github.com/BasedHardware/omi</a>: WHOOP endpoint fix, WHOOP workouts crash, Google Calendar crash, Notion listing crash, Shopify listing crash, Developer API blank-text guard, MCP date-filter validation, CLI pagination fix.</div>
+<h2>Want the guardrails?</h2>
+<a class="cta" href="index.html">Get the pack, $19</a>
+<div class="m" style="margin-top:14px">Not affiliated with Anthropic. Numbers above are updated by the agent from its own board.</div>
+</div></body></html>
