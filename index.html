@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Guardrails — stop your agent from running rm -rf</title>
+<meta name="description" content="Drop-in hooks, skills and agents for Claude Code: block destructive shell commands and secret leaks, generate changelogs, review PRs. Install in 60 seconds.">
+<meta property="og:title" content="Claude Code Guardrails">
+<meta property="og:description" content="Block destructive commands and secret leaks in Claude Code. Plus a changelog skill, PR-review agent and CLAUDE.md templates.">
+<style>
+  :root{--bg:#0b0d10;--panel:#12161b;--line:#1f262e;--text:#e6e9ee;--muted:#9aa4b2;--accent:#f5a524;--accent2:#2dd4bf;--danger:#ef4444;--ok:#22c55e;--radius:12px}
+  @media (prefers-color-scheme: light){:root{--bg:#fafafa;--panel:#fff;--line:#e5e7eb;--text:#111827;--muted:#4b5563}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;padding-inline:16px}
+  .wrap{max-width:920px;margin:0 auto}
+  header{padding:56px 0 24px}
+  .eyebrow{color:var(--accent2);font-weight:600;letter-spacing:.04em;text-transform:uppercase;font-size:12px}
+  h1{font-size:clamp(30px,5vw,48px);line-height:1.1;margin:10px 0 14px;letter-spacing:-.02em}
+  .lead{color:var(--muted);font-size:18px;max-width:640px}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#111;font-weight:700;padding:14px 22px;border-radius:10px;text-decoration:none;font-size:17px;margin-top:22px}
+  .cta:hover{filter:brightness(1.06)}
+  .sub{color:var(--muted);font-size:13px;margin-top:10px}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;overflow-x:auto;font-size:13.5px;line-height:1.5}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .term{margin-top:28px}
+  .term .l{display:block}
+  .term .cmd{color:var(--text)}
+  .term .blk{color:var(--danger)}
+  .term .dim{color:var(--muted)}
+  section{padding:36px 0;border-top:1px solid var(--line)}
+  h2{font-size:24px;margin:0 0 8px;letter-spacing:-.01em}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .card h3{margin:0 0 6px;font-size:16px}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:rgba(45,212,191,.12);color:var(--accent2);margin-bottom:8px}
+  .tbl{overflow-x:auto;margin-top:16px}
+  table{border-collapse:collapse;width:100%;font-size:14.5px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:13px}
+  td code{background:var(--panel);padding:1px 6px;border-radius:5px;font-size:13px}
+  .price{display:flex;flex-wrap:wrap;gap:20px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .price .n{font-size:40px;font-weight:800;letter-spacing:-.03em}
+  .price ul{margin:0;padding-left:18px;color:var(--muted);font-size:14.5px}
+  details{border-top:1px solid var(--line);padding:12px 0}
+  summary{cursor:pointer;font-weight:600}
+  details p{color:var(--muted);margin:8px 0 0}
+  footer{color:var(--muted);font-size:13px;padding:30px 0 50px}
+  a{color:var(--accent2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">For Claude Code users</div>
+  <h1>Your coding agent should never be one typo away from <code>rm -rf ~</code>.</h1>
+  <p class="lead">Claude Code Guardrails is a drop-in pack of hooks, skills and agents. It blocks destructive shell commands and secret leaks <em>before</em> they run, and adds the workflow pieces you keep rewriting: a changelog generator, a PR-review agent and battle-tested CLAUDE.md templates.</p>
+  <a class="cta" href="mailto:johnzhou1402@gmail.com?subject=Claude%20Code%20Guardrails%20-%20purchase" id="buy">Get the pack — $19</a>
+  <div class="sub">One-time purchase. Dependency-free Python. Works with the Claude Code CLI, desktop app and IDE extensions.</div>
+
+  <pre class="term"><span class="l dim">$ claude</span>
+<span class="l cmd">&gt; clean up the build directory</span>
+<span class="l dim">⏺ Bash(rm -rf ./build /)</span>
+<span class="l blk">⛔ guardrails: blocked "rm -rf" targeting "/" (root). Remove the path or add it to .claude/guardrails.json allowlist.</span>
+<span class="l dim">⏺ I'll narrow that to ./build only.</span></pre>
+</header>
+
+<section>
+  <h2>What's in the box</h2>
+  <div class="grid">
+    <div class="card"><span class="tag">Hook</span><h3>guard-destructive</h3><p>PreToolUse hook for Bash. Parses chained commands (<code>&amp;&amp;</code>, <code>;</code>, <code>|</code>, subshells, <code>sudo -E</code>) and blocks the dangerous ones with a clear reason Claude can act on.</p></div>
+    <div class="card"><span class="tag">Hook</span><h3>guard-secrets</h3><p>PreToolUse hook for Edit and Write. Stops AWS keys, private-key blocks, OpenAI/Anthropic/GitHub tokens and friends from being written into tracked files.</p></div>
+    <div class="card"><span class="tag">Skill</span><h3>/changelog</h3><p>Generates a Keep-a-Changelog section from git history since the last tag, grouped by feat, fix, perf, docs, refactor and breaking changes.</p></div>
+    <div class="card"><span class="tag">Agent</span><h3>pr-reviewer</h3><p>Subagent that reviews a diff and returns a structured report: summary, risk level, findings table with file:line, test gaps and a suggested commit message.</p></div>
+    <div class="card"><span class="tag">Template</span><h3>CLAUDE.md for Next.js + SQLite</h3><p>A strong starting CLAUDE.md for a SaaS codebase: conventions, commands, test policy, do-not-touch zones.</p></div>
+    <div class="card"><span class="tag">Installer</span><h3>install.sh</h3><p>Copies everything into <code>.claude/</code> and merges hook entries into <code>settings.json</code>. Idempotent, safe to re-run.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>What it blocks</h2>
+  <p class="lead" style="font-size:15px">Everything is configurable through <code>.claude/guardrails.json</code>. Allowlist paths you trust, add your own patterns, or switch a rule to warn-only.</p>
+  <div class="tbl"><table>
+    <tr><th>Category</th><th>Examples</th><th>Default</th></tr>
+    <tr><td>Recursive deletes</td><td><code>rm -rf /</code>, <code>rm -rf ~</code>, <code>rm -rf *</code>, <code>sudo rm -r</code></td><td>Block</td></tr>
+    <tr><td>Git history rewrites</td><td><code>git push --force main</code>, <code>git reset --hard</code>, <code>git clean -fd</code></td><td>Block</td></tr>
+    <tr><td>Database destruction</td><td><code>DROP TABLE</code>, <code>DROP DATABASE</code>, <code>TRUNCATE</code></td><td>Block</td></tr>
+    <tr><td>Disk and permissions</td><td><code>dd of=/dev/</code>, <code>mkfs</code>, <code>chmod -R 777</code>, <code>chown -R</code></td><td>Block</td></tr>
+    <tr><td>Remote code execution</td><td><code>curl … | sh</code>, <code>wget … | bash</code></td><td>Block</td></tr>
+    <tr><td>Fork bombs and overwrites</td><td><code>:(){ :|:&amp; };:</code>, <code>&gt; /etc/hosts</code></td><td>Block</td></tr>
+    <tr><td>Secrets in files</td><td><code>AKIA…</code>, <code>sk-…</code>, <code>ghp_…</code>, <code>-----BEGIN PRIVATE KEY-----</code></td><td>Block</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <h2>Install in 60 seconds</h2>
+<pre><code>unzip claude-code-guardrails.zip
+cd claude-code-guardrails
+./install.sh /path/to/your/project
+# then, inside your project:
+claude
+&gt; /hooks        # confirm PreToolUse hooks are registered
+&gt; /changelog    # try the skill</code></pre>
+  <p class="sub">No pip installs, no Node. Python 3.8+ is the only requirement. Uninstall by deleting the files from <code>.claude/</code>.</p>
+</section>
+
+<section>
+  <h2>Pricing</h2>
+  <div class="price">
+    <div><div class="n">$19</div><div class="sub">one-time, per developer</div></div>
+    <ul>
+      <li>All hooks, skills, agents and templates</li>
+      <li>Full test suite included so you can extend rules with confidence</li>
+      <li>Free updates for the 1.x line</li>
+      <li>MIT-licensed for use inside your own projects</li>
+    </ul>
+    <a class="cta" href="mailto:johnzhou1402@gmail.com?subject=Claude%20Code%20Guardrails%20-%20purchase">Buy now</a>
+  </div>
+</section>
+
+<section>
+  <h2>FAQ</h2>
+  <details><summary>Does it slow Claude down?</summary><p>No. Each hook is a single Python process that runs in a few milliseconds and only on Bash, Edit and Write calls.</p></details>
+  <details><summary>Will it block legitimate commands?</summary><p>The defaults target commands that are almost never right for an agent to run. Anything you want to permit goes in the allowlist and the hook passes it through.</p></details>
+  <details><summary>Does it work in the VS Code and JetBrains extensions?</summary><p>Yes. Hooks are part of Claude Code's settings and run wherever Claude Code runs.</p></details>
+  <details><summary>Can I use it on a team?</summary><p>Commit <code>.claude/</code> to your repo and the whole team gets the same guardrails. Buy one license per developer who runs it.</p></details>
+  <details><summary>Refunds?</summary><p>If it does not do what this page says, email within 14 days and you get a full refund.</p></details>
+</section>
+
+<footer>© 2026 · Built by John Zhou · Questions: <a href="mailto:johnzhou1402@gmail.com">johnzhou1402@gmail.com</a> · Not affiliated with Anthropic; "Claude" is a trademark of Anthropic, PBC.</footer>
+</div>
+</body>
+</html>
