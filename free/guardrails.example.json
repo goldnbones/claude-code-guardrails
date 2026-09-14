@@ -1,0 +1,67 @@
+{
+  "_comment": "Copy to <project>/.claude/guardrails.json (or ~/.claude/guardrails.json for every project). Keys starting with '_' are ignored. Lists from the user-level and project-level files are merged; scalars in the project file win.",
+
+  "destructive": {
+    "_comment": "Settings for hooks/guard-destructive.py (Bash tool).",
+
+    "protected_branches": ["main", "master", "develop", "production", "prod", "staging", "release", "release/*"],
+
+    "protected_paths": [
+      "_example: ~/work/important-data",
+      "_example: /srv/backups"
+    ],
+
+    "protected_files": [
+      "_example: config/production.yml",
+      "_example: *.sqlite.bak"
+    ],
+
+    "allow_patterns": [
+      "_example (regex, re.search): ^rm -rf \\./?\\.next/?$",
+      "_example: ^git reset --hard origin/main$"
+    ],
+
+    "block_patterns": [
+      "_example: ^npm publish",
+      "_example: vercel --prod"
+    ],
+
+    "disabled_rules": [
+      "_example: db_file_delete",
+      "_example: git_force_push_unknown_branch"
+    ],
+
+    "allow_force_with_lease": false,
+    "block_direct_push_to_protected": false,
+    "fail_closed": false
+  },
+
+  "secrets": {
+    "_comment": "Settings for hooks/guard-secrets.py (Edit/Write/MultiEdit/NotebookEdit tools).",
+
+    "allow_files": [
+      "_example: config/local-overrides.json",
+      "_example: *.secrets.yaml"
+    ],
+
+    "allow_patterns": [
+      "_example (regex matched against the detected VALUE): ^sk-test-",
+      "_example: ^AKIA(TEST|FAKE)"
+    ],
+
+    "placeholder_words": [
+      "_example: acme-demo"
+    ],
+
+    "disabled_rules": [
+      "_example: jwt",
+      "_example: generic_assignment"
+    ],
+
+    "respect_gitignore": true,
+    "scan_outside_git": true,
+    "generic_min_entropy": 3.5,
+    "generic_min_length": 16,
+    "fail_closed": false
+  }
+}
