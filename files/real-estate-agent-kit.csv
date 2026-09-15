@@ -1,0 +1,10 @@
+Section,#,Prompt
+Listings,1,"Write an MLS description for a [BEDS]bd/[BATHS]ba [TYPE] in [AREA] highlighting [FEATURES], under 200 words."
+Listings,2,Write 5 social captions for a new listing at [ADDRESS].
+Listings,3,Write an open-house announcement for [DATE] at [ADDRESS].
+Outreach,1,Draft a farming postcard for [NEIGHBORHOOD] with a market stat and a call to action.
+Outreach,2,"Write a message to past clients asking for referrals, warm not pushy."
+Outreach,3,Write a follow-up sequence for a lead who attended an open house.
+Client comms,1,Explain the closing process to a first-time buyer in plain language.
+Client comms,2,Write a message managing a seller's expectations on price given [MARKET CONDITION].
+Client comms,3,Draft a CMA cover note for [ADDRESS].

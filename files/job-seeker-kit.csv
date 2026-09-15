@@ -1,0 +1,17 @@
+Section,#,Prompt
+Resume,1,Rewrite this bullet to lead with impact and a number: [BULLET].
+Resume,2,"Tailor my resume summary to this job description, keeping it truthful: [JD] / [SUMMARY]."
+Resume,3,Turn these responsibilities into achievement bullets with metrics I can confirm: [DUTIES].
+Resume,4,Find the keywords in this job description an ATS will scan for: [JD].
+Resume,5,Shorten my resume to one page by cutting the weakest 30%: [RESUME].
+Cover letters,1,Write a 200-word cover letter for [ROLE] at [COMPANY] using these three achievements: [ACHIEVEMENTS].
+Cover letters,2,"Rewrite this cover letter to sound like me, not a template: [LETTER]."
+Cover letters,3,Write a short note to send with a referral from [NAME].
+Interview,1,Give me 10 likely interview questions for [ROLE] and a STAR-format answer outline for each.
+Interview,2,Play the hiring manager for [ROLE] and interview me one question at a time.
+Interview,3,Turn this rambling answer into a tight 60-second STAR answer: [ANSWER].
+Interview,4,List smart questions to ask the interviewer for [ROLE] at [COMPANY].
+Search,1,Draft a LinkedIn message to a recruiter at [COMPANY] about [ROLE].
+Search,2,Write a follow-up thank-you email after interviewing for [ROLE].
+Search,3,Help me negotiate an offer of [X] for [ROLE] given market data.
+Search,4,Write my LinkedIn headline and About section for a [ROLE] targeting [INDUSTRY].

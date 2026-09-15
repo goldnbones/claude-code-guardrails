@@ -1,0 +1,24 @@
+Section,#,Prompt
+Marketing,1,"Write a month of social posts for a [BUSINESS] in [CITY], 3 per week, each with a hook and a call to action."
+Marketing,2,Turn this service list into 5 promotional offers that do not cheapen the brand: [SERVICES].
+Marketing,3,Write a Google Business Profile description for [BUSINESS] under 750 characters with local keywords.
+Marketing,4,Draft a referral program for [BUSINESS] and the message asking happy customers to join.
+Marketing,5,Write 5 email subject lines and one newsletter for a [SEASON] promotion at [BUSINESS].
+Operations,1,Turn this messy task list into a weekly schedule for a team of [N]: [TASKS].
+Operations,2,Write a simple SOP for [RECURRING TASK] that a new hire could follow.
+Operations,3,"Draft a job post for a part-time [ROLE] at [BUSINESS], with must-haves and nice-to-haves."
+Operations,4,Create an onboarding checklist for a new [ROLE].
+Operations,5,"Write a vendor email negotiating better terms on [SUPPLY], politely and firmly."
+Customer service,1,"Write 6 canned replies for common questions at [BUSINESS]: hours, pricing, booking, refunds, location, availability."
+Customer service,2,Reply to this unhappy customer calmly and offer a fix: [MESSAGE].
+Customer service,3,"Write a review-request text sent 2 days after service, low pressure."
+Customer service,4,Respond publicly to a negative review about [ISSUE] without arguing.
+Customer service,5,Draft an apology + make-good message for a service failure: [WHAT HAPPENED].
+Money,1,"Estimate a price for [SERVICE] given costs [X] and [Y] hours, at three margins."
+Money,2,"Write a late-payment reminder sequence: friendly, firm, final."
+Money,3,List 8 ways a [BUSINESS] can raise average ticket without new customers.
+Money,4,Draft a simple quote/estimate template for [SERVICE].
+Strategy,1,Ask me 10 questions to find the biggest bottleneck in my [BUSINESS].
+Strategy,2,Give me a 30-day plan to get 10 new customers for [BUSINESS] with no ad budget.
+Strategy,3,List 5 low-cost partnerships for a [BUSINESS] in [CITY].
+Strategy,4,Write my one-sentence positioning and 3 taglines for [BUSINESS].

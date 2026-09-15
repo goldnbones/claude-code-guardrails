@@ -1,0 +1,79 @@
+Section,#,Prompt
+Listing titles (SEO),1,"Write 10 Etsy listing titles for [PRODUCT] aimed at [BUYER], each under 140 characters, front-loading the two most-searched phrases, no repeated words, no ALL CAPS."
+Listing titles (SEO),2,"Rewrite this title so the first 40 characters carry the strongest keyword and the rest adds material, size and use case: [TITLE]. Give 5 variants."
+Listing titles (SEO),3,"List 25 long-tail search phrases a buyer might type when looking for [PRODUCT] as a gift for [OCCASION]. Group them by intent: gift, personal use, bulk."
+Listing titles (SEO),4,Take these three competitor titles and produce one better title that avoids their exact phrasing but covers the same searches: [TITLE 1] / [TITLE 2] / [TITLE 3].
+Listing titles (SEO),5,"Suggest 8 title formulas for a shop that sells [CATEGORY], with a filled example for each formula."
+Listing titles (SEO),6,"Audit this title for keyword stuffing and readability, then give a cleaner version that keeps the top three phrases: [TITLE]."
+Listing titles (SEO),7,Write titles for the same [PRODUCT] in three sizes/variants so they do not compete with each other in search: [VARIANTS].
+Listing titles (SEO),8,"Give me 10 seasonal title variations for [PRODUCT] for [HOLIDAY], to run only during that window."
+Listing titles (SEO),9,"Which of these titles would you click first as a buyer, and why: [TITLES]. Rank them."
+Listing titles (SEO),10,Turn this plain description of what I make into an Etsy title a real buyer would search for: [DESCRIPTION].
+Listing descriptions,1,"Write an Etsy description for [PRODUCT]: opening line that repeats the main keyword naturally, 3 short benefit bullets, materials and dimensions, how it ships, a care note, and a one-line personalization instruction. Under 250 words."
+Listing descriptions,2,"Rewrite this description in a warm, plain voice with no marketing clichés, keeping every fact: [DESCRIPTION]."
+Listing descriptions,3,Write the first 160 characters of a description for [PRODUCT] so it reads well as the search snippet and includes [KEYWORD].
+Listing descriptions,4,"Draft a 'What you get' section for a digital download of [PRODUCT]: file formats, sizes, what software opens it, what is NOT included, and a line about no physical item being shipped."
+Listing descriptions,5,"Write a personalization section that tells buyers exactly what to enter in the personalization box for [PRODUCT], with two examples and a character limit."
+Listing descriptions,6,"Create a materials and dimensions block for [PRODUCT] in the format Etsy buyers expect, using both inches and centimeters."
+Listing descriptions,7,"Write 5 FAQ entries for [PRODUCT] covering sizing, shipping time, returns, custom orders and care, in the buyer's words."
+Listing descriptions,8,Turn these customer questions from my messages into an FAQ section: [QUESTIONS].
+Listing descriptions,9,"Write a gift-focused paragraph for [PRODUCT] for [RECIPIENT], mentioning gift wrap and a note option if I offer them: [YES/NO]."
+Listing descriptions,10,"Rewrite my description so a screen reader would describe the product clearly (alt-text style clarity), then give me matching alt text for 5 photos."
+Listing descriptions,11,Write a description for a made-to-order item with a [N]-day production time that sets expectations kindly and clearly.
+Listing descriptions,12,"Condense this description to 120 words without losing materials, size or shipping info: [DESCRIPTION]."
+Tags and attributes,1,"Give me exactly 13 Etsy tags for [PRODUCT], each 20 characters or fewer, multi-word phrases, no words already in the title, covering style, occasion, recipient, material and use."
+Tags and attributes,2,Here is my title and current tags. Find overlaps and replace the redundant tags with new search angles: [TITLE] / [TAGS].
+Tags and attributes,3,"Produce 13 tags for the same [PRODUCT] under three different buyer intents: gifting, home decor, and collector. Three lists."
+Tags and attributes,4,"Suggest which Etsy attributes (color, material, occasion, holiday, style) fit [PRODUCT], and which to leave blank."
+Tags and attributes,5,"List 20 adjacent niches whose buyers might also want [PRODUCT], with one tag idea for each."
+Tags and attributes,6,"Convert these 40 keyword ideas into the best 13 tags, explaining the two you dropped and why: [KEYWORDS]."
+Tags and attributes,7,"Write 13 tags for a [HOLIDAY] version of [PRODUCT], to swap in six weeks before the holiday."
+Tags and attributes,8,Give me tags for [PRODUCT] in British and American spelling variants where it matters.
+Photo and video briefs,1,"Write a shot list of 10 photos for [PRODUCT]: hero on white, in use, scale reference, detail, packaging, variants, size chart graphic, lifestyle, flat lay, and a text overlay slide. For each: angle, light, prop, and what the buyer should learn."
+Photo and video briefs,2,"Describe a 10-second Etsy listing video for [PRODUCT] shot on a phone, frame by frame, that shows scale and texture."
+Photo and video briefs,3,Suggest 6 text overlays for listing images that answer the top buyer objections for [PRODUCT].
+Photo and video briefs,4,"Give me a simple lighting setup for photographing [PRODUCT] near a window, with what to avoid."
+Photo and video briefs,5,Write an infographic image brief that shows the sizes of [PRODUCT] against everyday objects.
+Photo and video briefs,6,"Plan a 5-image sequence for a digital product ([PRODUCT]) that shows the file on screen, printed, and in use, so buyers understand what they get."
+Customer messages,1,"Write a friendly reply to a buyer asking if [PRODUCT] will arrive by [DATE], when my production time is [N] days and shipping is [N] days. Offer an upgrade if available."
+Customer messages,2,"Draft a message to a buyer whose order is delayed at the carrier, with the tracking link placeholder, an apology that does not over-promise, and next steps."
+Customer messages,3,"Write a polite reply declining a custom request I cannot do, with an alternative from my shop."
+Customer messages,4,"Write a thank-you note to include with orders of [PRODUCT], 40 words, no request for reviews in the note itself."
+Customer messages,5,"Draft a message asking for a review 5 days after delivery, short and low-pressure, with an easy out."
+Customer messages,6,"Reply to a 3-star review that says [REVIEW], publicly, in two sentences, without arguing."
+Customer messages,7,Write a message to a buyer who entered personalization text with a typo: confirm before I make it.
+Customer messages,8,"Write a message for a buyer who wants to return a personalized item, explaining my policy kindly and offering a partial fix if possible."
+Customer messages,9,"Draft 5 canned replies I can save in Etsy Messages for: shipping time, sizing, custom orders, wholesale, and 'is it in stock'."
+Customer messages,10,"Write a gentle follow-up to a buyer who has not responded to my question about their order in 3 days, mentioning I will ship the default if I do not hear back by [DATE]."
+Shop strategy,1,I sell [PRODUCTS] at [PRICES]. Suggest 5 bundles or variants that raise average order value without new materials.
+Shop strategy,2,"Give me a 30-day plan to reach my first 10 sales in a new shop selling [PRODUCT], one action per day, no paid ads."
+Shop strategy,3,"Estimate a price for [PRODUCT] given materials cost [X], time [Y] hours, and Etsy fees (6.5% transaction, 3% + $0.25 payment, $0.20 listing). Show the math at three margins."
+Shop strategy,4,Compare running an Etsy sale versus a coupon versus free shipping for [PRODUCT] and tell me which one to try first and why.
+Shop strategy,5,Write my shop announcement (under 160 characters) and my About section (150 words) for a shop that makes [PRODUCT] in [PLACE].
+Shop strategy,6,"Suggest 10 shop section names for a shop that sells [PRODUCTS], ordered the way a buyer would browse."
+Shop strategy,7,List the 8 most common reasons a new Etsy listing gets no views and a fix for each.
+Shop strategy,8,"Draft a weekly 30-minute routine for maintaining my shop: what to check, renew, and update."
+Shop strategy,9,"Plan my listings for the next 3 months around these holidays: [HOLIDAYS]. When to list, when to promote, when to pull."
+Shop strategy,10,"Write a policies section: processing time, shipping, returns for digital vs physical, and custom orders, in plain language."
+Shop strategy,11,I have [N] listings and [M] sales. Ask me 10 diagnostic questions to find what to fix first.
+Shop strategy,12,"Suggest 5 low-cost product ideas adjacent to [PRODUCT] that use the same materials and skills, with the buyer for each."
+Digital products specifically,1,"Write a listing description for a printable [PRODUCT] that explains sizes included, paper suggestions, how to print at home or at a print shop, and the personal-use license."
+Digital products specifically,2,"Write the license text for a digital download: personal use, no resale, no redistribution, in 80 plain words."
+Digital products specifically,3,"Create a one-page 'How to download your files from Etsy' guide to include as a PDF, covering desktop and the app."
+Digital products specifically,4,Suggest 10 file bundle ideas for a shop selling [DIGITAL PRODUCT] that raise value without much extra work.
+Digital products specifically,5,"Write a message template for buyers who cannot open [FILE TYPE], with the free apps that open it on Mac, Windows, iPhone and Android."
+Digital products specifically,6,"Turn this spreadsheet template idea into a listing: [IDEA]. Name, subtitle, what it tracks, who it is for, and 5 bullets."
+Ads and social,1,"Write 5 Pinterest pin titles and descriptions for [PRODUCT], each with a keyword and a reason to click."
+Ads and social,2,"Draft a 3-post Instagram sequence introducing [PRODUCT]: behind the scenes, the product, and a customer use. Include first-line hooks."
+Ads and social,3,Write 6 short-form video hooks (under 8 words) for [PRODUCT].
+Ads and social,4,"Give me an Etsy Ads plan for a $3/day budget: which listings to include, when to check, and what numbers mean stop or scale."
+Ads and social,5,"Write a short pitch to a local gift shop asking to stock [PRODUCT], with wholesale pricing at [X]."
+Ads and social,6,Create 5 caption templates I can reuse weekly for a shop that sells [PRODUCTS].
+Reviews and reputation,1,"Summarize these 20 reviews into the top 3 praised things and top 2 complaints, and suggest a listing change for each complaint: [REVIEWS]."
+Reviews and reputation,2,"Write a public response to a 1-star review that is about shipping delay outside my control, calm and factual."
+Reviews and reputation,3,Draft a message to a happy buyer asking permission to feature their photo in my listing.
+Reviews and reputation,4,"Suggest 5 small packaging touches that reliably earn 5-star mentions, for [PRODUCT]."
+Batch and speed,1,"I will paste 10 product names. For each, give a title (under 140 chars), 13 tags, and a 2-sentence opener. Format as a table: [PRODUCTS]."
+Batch and speed,2,Here are my 5 best-selling listings. Find the pattern in their titles and tags and apply it to these 5 weak listings: [BEST] / [WEAK].
+Batch and speed,3,"Rewrite all of these descriptions in one consistent voice, keeping facts unchanged: [DESCRIPTIONS]."
+Batch and speed,4,"Generate a CSV with columns title, description, tags for these products so I can copy into listings: [PRODUCTS]."
