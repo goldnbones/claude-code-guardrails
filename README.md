@@ -31,3 +31,7 @@ Try it: ask Claude to run `rm -rf /` and watch it get refused with the rule name
 The paid pack adds `guard-secrets.py` (stops AWS keys, private keys and API tokens being written into tracked files), a `/changelog` skill, a structured PR-review subagent, a CLAUDE.md template for Next.js + SQLite, an idempotent installer/uninstaller, and the 400-assertion test suite so you can extend rules safely.
 
 → https://goldnbones.github.io/claude-code-guardrails/
+
+## Free tool: Setup Studio
+
+Generate a complete .claude/ config (hooks, settings.json, CLAUDE.md, review subagent) in your browser, no signup: https://goldnbones.github.io/claude-code-guardrails/studio.html

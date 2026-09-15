@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code Setup Studio — generate your .claude/ config</title>
+<meta name="description" content="Free tool: pick your project type and guardrails, get a ready-to-paste .claude/ setup for Claude Code — settings.json, hooks, CLAUDE.md and a subagent. No signup.">
+<meta property="og:title" content="Claude Code Setup Studio">
+<meta property="og:description" content="Generate a complete .claude/ config for Claude Code in 30 seconds — hooks, settings.json, CLAUDE.md. Free, no signup.">
+<style>
+  :root{--bg:#0b0d10;--panel:#12161b;--panel2:#0f1318;--line:#20262e;--text:#e6e9ee;--muted:#94a0ae;--accent:#f5a524;--accent2:#2dd4bf;--ok:#22c55e;--r:10px}
+  @media (prefers-color-scheme:light){:root{--bg:#f7f8fa;--panel:#fff;--panel2:#fbfcfd;--line:#e4e8ec;--text:#111827;--muted:#5b6672}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;padding-inline:16px}
+  .wrap{max-width:1000px;margin:0 auto;padding-block:28px 60px}
+  header{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:baseline;justify-content:space-between}
+  h1{font-size:clamp(24px,4vw,34px);margin:0;letter-spacing:-.02em}
+  .tag{color:var(--accent2);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .lead{color:var(--muted);max-width:640px;margin:8px 0 0}
+  a{color:var(--accent2)}
+  .grid{display:grid;grid-template-columns:340px 1fr;gap:18px;margin-top:22px}
+  @media (max-width:800px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:0 0 12px}
+  label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  select,input[type=text]{width:100%;background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit}
+  .opt{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border:1px solid var(--line);border-radius:8px;margin-top:8px;cursor:pointer;background:var(--panel2)}
+  .opt:hover{border-color:var(--accent2)}
+  .opt input{margin-top:3px}
+  .opt .t{font-weight:600;font-size:14px}
+  .opt .d{color:var(--muted);font-size:12.5px;margin-top:2px}
+  .opt .pro{display:inline-block;font-size:10px;font-weight:700;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:0 5px;margin-left:6px;vertical-align:1px}
+  .tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+  .tabs button{background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:6px 11px;font:inherit;font-size:13px;cursor:pointer}
+  .tabs button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+  pre{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow:auto;margin:0;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;max-height:52vh}
+  .row{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;padding:8px 13px;font:inherit;font-weight:600;font-size:13px;cursor:pointer}
+  .btn:hover{border-color:var(--accent2)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#111}
+  .path{font:12px ui-monospace,Menlo,monospace;color:var(--muted)}
+  .upsell{margin-top:18px;background:linear-gradient(180deg,transparent,rgba(245,165,36,.06));border:1px solid var(--line);border-radius:var(--r);padding:16px}
+  .upsell h3{margin:0 0 4px}
+  .upsell p{color:var(--muted);margin:0 0 10px;font-size:14px}
+  footer{color:var(--muted);font-size:12.5px;margin-top:30px}
+  .hint{color:var(--muted);font-size:12.5px;margin-top:6px}
+  .count{color:var(--accent2);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <div class="tag">Free tool · no signup</div>
+      <h1>Claude Code Setup Studio</h1>
+    </div>
+    <a class="btn" href="index.html">← Guardrails pack</a>
+  </header>
+  <p class="lead">Pick your project type and the safety rules you want. Get a complete, ready-to-paste <code>.claude/</code> setup for Claude Code: <code>settings.json</code>, guardrail hooks, a <code>CLAUDE.md</code> starter, and a review subagent. Everything runs in your browser; nothing is uploaded.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h2>1 · Your project</h2>
+      <label for="stack">Stack</label>
+      <select id="stack">
+        <option value="next">Next.js + TypeScript</option>
+        <option value="node">Node / TypeScript</option>
+        <option value="python">Python</option>
+        <option value="go">Go</option>
+        <option value="rust">Rust</option>
+        <option value="other">Other / generic</option>
+      </select>
+      <label for="pm">Test / build command</label>
+      <input type="text" id="pm" placeholder="e.g. npm test, pytest, go test ./...">
+      <label for="branch">Protected branch</label>
+      <input type="text" id="branch" value="main">
+
+      <h2 style="margin-top:18px">2 · Guardrails</h2>
+      <div id="guards"></div>
+
+      <h2 style="margin-top:18px">3 · Extras</h2>
+      <div id="extras"></div>
+    </div>
+
+    <div class="card">
+      <h2>Your <span class="path">.claude/</span> setup <span id="fcount" class="count"></span></h2>
+      <div class="tabs" id="tabs"></div>
+      <div class="row">
+        <button class="btn primary" id="copy">Copy this file</button>
+        <button class="btn" id="dl">Download .claude.zip</button>
+        <span class="path" id="curpath"></span>
+      </div>
+      <pre id="out"><code></code></pre>
+      <div class="hint" id="installhint"></div>
+
+      <div class="upsell">
+        <h3>Want the battle-tested version?</h3>
+        <p>This tool generates solid starter hooks. The <strong>Guardrails &amp; Workflow Pack</strong> ($19) adds the hardened <code>guard-destructive.py</code> and <code>guard-secrets.py</code> (shell-parsing for <code>&amp;&amp;</code>, pipes, subshells, <code>sudo&nbsp;-E</code>), a changelog skill, a PR-review subagent, and a 400-case test suite so you can extend the rules safely.</p>
+        <a class="btn primary" href="index.html">See the pack — $19</a>
+        <a class="btn" href="https://github.com/goldnbones/claude-code-guardrails" target="_blank" rel="noopener">Free hook on GitHub</a>
+      </div>
+    </div>
+  </div>
+  <footer>Not affiliated with Anthropic. Built with the <a href="https://github.com/goldnbones/claude-code-guardrails">Claude Code Guardrails</a> project. Runs entirely client-side.</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+const GUARDS=[
+ {id:'rmrf',t:'Block destructive rm',d:'Refuses rm -rf on /, ~, or with wildcards.',on:true},
+ {id:'force',t:'Block force-push to protected branch',d:'Stops git push --force / -f to your protected branch.',on:true},
+ {id:'reset',t:'Block git reset --hard / clean -fd',d:'Prevents wiping uncommitted work.',on:true},
+ {id:'db',t:'Block DROP TABLE / DATABASE',d:'Refuses destructive SQL piped to a client.',on:true},
+ {id:'pipe',t:'Block curl|sh remote execution',d:'Stops piping downloaded scripts into a shell.',on:true},
+ {id:'secrets',t:'Block writing secrets into files',d:'Blocks AWS keys, private keys, API tokens in Edit/Write.',on:true},
+];
+const EXTRAS=[
+ {id:'claudemd',t:'CLAUDE.md starter',d:'Project conventions, commands, do-not-touch zones.',on:true},
+ {id:'reviewer',t:'PR-review subagent (basic)',d:'agents/pr-reviewer.md that emits a structured review.',on:true},
+ {id:'testhook',t:'Post-edit test reminder',d:'Reminds Claude to run your test command after edits.',on:false},
+];
+const state={stack:'next',pm:'',branch:'main',guards:Object.fromEntries(GUARDS.map(g=>[g.id,g.on])),extras:Object.fromEntries(EXTRAS.map(e=>[e.id,e.on])),tab:0};
+const DEFCMD={next:'npm test',node:'npm test',python:'pytest',go:'go test ./...',rust:'cargo test',other:'make test'};
+
+function el(html){const d=document.createElement('div');d.innerHTML=html;return d.firstElementChild;}
+function renderOpts(){
+  document.getElementById('guards').innerHTML='';
+  GUARDS.forEach(g=>{const o=el(`<label class="opt"><input type="checkbox" ${state.guards[g.id]?'checked':''} data-g="${g.id}"><span><span class="t">${g.t}</span><span class="d">${g.d}</span></span></label>`);document.getElementById('guards').appendChild(o);});
+  document.getElementById('extras').innerHTML='';
+  EXTRAS.forEach(g=>{const o=el(`<label class="opt"><input type="checkbox" ${state.extras[g.id]?'checked':''} data-e="${g.id}"><span><span class="t">${g.t}</span><span class="d">${g.d}</span></span></label>`);document.getElementById('extras').appendChild(o);});
+}
+
+// ---- generators
+function destructiveHook(){
+  const patterns=[];
+  if(state.guards.rmrf)patterns.push([String.raw`\brm\s+(-[a-zA-Z]*\s+)*-?[a-zA-Z]*\s*(-[a-zA-Z]*\s+)*(/|~|\$HOME|\*)(\s|$)`,'recursive rm targeting root, home, or a wildcard']);
+  if(state.guards.force)patterns.push(['git\\s+push\\s+.*(--force|-f)\\b(?!-with-lease)','force-push (use --force-with-lease if you must)']);
+  if(state.guards.reset)patterns.push(['git\\s+reset\\s+--hard|git\\s+clean\\s+-[a-z]*f','git reset --hard / git clean -f wipes uncommitted work']);
+  if(state.guards.db)patterns.push(['drop\\s+(table|database)|truncate\\s+table','destructive SQL']);
+  if(state.guards.pipe)patterns.push(['(curl|wget)\\s+[^|]*\\|\\s*(sudo\\s+)?(ba)?sh','piping a downloaded script into a shell']);
+  const py=`#!/usr/bin/env python3
+"""PreToolUse guard for the Bash tool. Blocks destructive commands.
+Generated by Claude Code Setup Studio. Exit 2 = block; stderr is shown to Claude.
+For the hardened version (shell parsing of &&, pipes, subshells, sudo -E) see the Guardrails pack."""
+import json, re, sys
+
+BRANCH = ${JSON.stringify(state.branch||'main')}
+RULES = [
+${patterns.map(p=>`    (re.compile(r"""${p[0].replace(/"/g,'\\"')}""", re.I), ${JSON.stringify(p[1])}),`).join('\n')}
+]
+
+def main():
+    try:
+        data = json.load(sys.stdin)
+    except Exception:
+        sys.exit(0)  # fail open on malformed input
+    cmd = (data.get("tool_input") or {}).get("command", "")
+    cmd = cmd.replace("master", BRANCH) if False else cmd
+    for rx, why in RULES:
+        if rx.search(cmd):
+            sys.stderr.write("BLOCKED by guard-destructive: " + why + "\\n  command: " + cmd[:200] + "\\n  If this is genuinely needed, run it yourself or relax .claude/hooks.\\n")
+            sys.exit(2)
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+`;
+  return py;
+}
+function secretsHook(){
+  return `#!/usr/bin/env python3
+"""PreToolUse guard for Edit/Write/MultiEdit. Blocks writing likely secrets into files.
+Generated by Claude Code Setup Studio."""
+import json, re, sys
+
+PATTERNS = [
+    (r"AKIA[0-9A-Z]{16}", "AWS access key id"),
+    (r"-----BEGIN[ A-Z]*PRIVATE KEY-----", "private key block"),
+    (r"sk-[A-Za-z0-9]{20,}", "OpenAI-style secret key"),
+    (r"ghp_[A-Za-z0-9]{30,}", "GitHub personal access token"),
+    (r"xox[baprs]-[A-Za-z0-9-]{10,}", "Slack token"),
+    (r"AIza[0-9A-Za-z_\\-]{30,}", "Google API key"),
+]
+
+def main():
+    try:
+        data = json.load(sys.stdin)
+    except Exception:
+        sys.exit(0)
+    ti = data.get("tool_input") or {}
+    text = ti.get("content") or ti.get("new_string") or ""
+    for pat, why in PATTERNS:
+        if re.search(pat, text):
+            sys.stderr.write("BLOCKED by guard-secrets: looks like a " + why + ". Use an env var or a secrets manager instead.\\n")
+            sys.exit(2)
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+`;
+}
+function settingsJson(){
+  const pre=[];
+  const bashHooks=[];
+  if(state.guards.rmrf||state.guards.force||state.guards.reset||state.guards.db||state.guards.pipe)
+    bashHooks.push({type:"command",command:'python3 "$CLAUDE_PROJECT_DIR"/.claude/hooks/guard-destructive.py'});
+  if(bashHooks.length)pre.push({matcher:"Bash",hooks:bashHooks});
+  if(state.guards.secrets)pre.push({matcher:"Edit|Write|MultiEdit",hooks:[{type:"command",command:'python3 "$CLAUDE_PROJECT_DIR"/.claude/hooks/guard-secrets.py'}]});
+  const s={hooks:{PreToolUse:pre}};
+  if(state.extras.testhook){const cmd=state.pm||DEFCMD[state.stack];s.hooks.PostToolUse=[{matcher:"Edit|Write|MultiEdit",hooks:[{type:"command",command:`echo 'Reminder: run \\`${cmd}\\` before finishing.' 1>&2`}]}];}
+  return JSON.stringify(s,null,2);
+}
+function claudeMd(){
+  const cmd=state.pm||DEFCMD[state.stack];
+  const names={next:'Next.js + TypeScript',node:'Node / TypeScript',python:'Python',go:'Go',rust:'Rust',other:'this project'};
+  return `# CLAUDE.md
+
+## Project
+${names[state.stack]}. Describe in one line what this app does and who uses it.
+
+## Commands
+- Test / verify: \`${cmd}\`
+- Run locally: (add your dev command)
+- Lint / format: (add if you have one)
+
+## Working agreement
+- Make the smallest change that satisfies the request; don't refactor working code for style.
+- Behavior change → a test changes. Run \`${cmd}\` before saying something works.
+- Never commit or push unless I ask. Branch off ${state.branch}; never push directly to ${state.branch}.
+- Ask before anything destructive or hard to reverse.
+
+## Do not touch
+- Secrets, .env files, credentials.
+- Generated files, lockfiles (unless the task is about them).
+- (List paths that are off-limits.)
+
+## Conventions
+- (Naming, folder layout, error handling, the patterns you want followed.)
+`;
+}
+function reviewer(){
+  return `---
+name: pr-reviewer
+description: Reviews a diff and returns a structured Markdown report.
+tools: Bash, Read, Grep
+---
+
+You review a code change and output ONLY this Markdown:
+
+## Summary
+One or two sentences on what the change does.
+
+## Risk: low | medium | high
+One line on why.
+
+## Findings
+| Severity | File:line | Issue | Suggested fix |
+|---|---|---|---|
+(one row per real issue; empty if none)
+
+## Test gaps
+- What is not covered that should be.
+
+## Suggested commit message
+A single conventional-commit line.
+
+Rules: only flag real problems (correctness, security, data loss). Do not nitpick style the linter already handles. If the diff is clean, say so.
+`;
+}
+function files(){
+  const f=[];
+  if(state.guards.rmrf||state.guards.force||state.guards.reset||state.guards.db||state.guards.pipe)f.push(['.claude/hooks/guard-destructive.py',destructiveHook()]);
+  if(state.guards.secrets)f.push(['.claude/hooks/guard-secrets.py',secretsHook()]);
+  f.push(['.claude/settings.json',settingsJson()]);
+  if(state.extras.claudemd)f.push(['CLAUDE.md',claudeMd()]);
+  if(state.extras.reviewer)f.push(['.claude/agents/pr-reviewer.md',reviewer()]);
+  return f;
+}
+function render(){
+  const f=files();
+  document.getElementById('fcount').textContent='· '+f.length+' files';
+  const tabs=document.getElementById('tabs');tabs.innerHTML='';
+  f.forEach((x,i)=>{const b=document.createElement('button');b.textContent=x[0].split('/').pop();b.className=i===state.tab?'on':'';b.onclick=()=>{state.tab=i;render();};tabs.appendChild(b);});
+  if(state.tab>=f.length)state.tab=0;
+  const cur=f[state.tab];
+  document.getElementById('out').firstElementChild.textContent=cur[1];
+  document.getElementById('curpath').textContent=cur[0];
+  const hasHooks=f.some(x=>x[0].includes('hooks/'));
+  document.getElementById('installhint').innerHTML='Drop these into your project root. '+(hasHooks?'Make the hooks executable: <code>chmod +x .claude/hooks/*.py</code>. ':'')+'Then run <code>claude</code> and try a blocked command to confirm.';
+}
+document.addEventListener('change',e=>{
+  if(e.target.id==='stack'){state.stack=e.target.value;if(!state.pm)document.getElementById('pm').placeholder=DEFCMD[state.stack];render();}
+  if(e.target.dataset.g){state.guards[e.target.dataset.g]=e.target.checked;render();}
+  if(e.target.dataset.e){state.extras[e.target.dataset.e]=e.target.checked;render();}
+});
+document.addEventListener('input',e=>{
+  if(e.target.id==='pm'){state.pm=e.target.value;render();}
+  if(e.target.id==='branch'){state.branch=e.target.value;render();}
+});
+document.getElementById('copy').onclick=()=>{const f=files()[state.tab];navigator.clipboard.writeText(f[1]).then(()=>{const b=document.getElementById('copy');b.textContent='Copied ✓';setTimeout(()=>b.textContent='Copy this file',1200);});};
+document.getElementById('dl').onclick=async()=>{
+  const zip=new JSZip();files().forEach(([p,c])=>zip.file(p,c));
+  const blob=await zip.generateAsync({type:'blob'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='claude-setup.zip';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+};
+renderOpts();render();
+</script>
+</body>
+</html>
