@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code hooks: a practical guide to PreToolUse guards (block rm -rf, force-push, secrets)</title>
+<meta name="description" content="How Claude Code PreToolUse hooks work, with real settings.json and Python examples that block rm -rf, git push --force, git reset --hard and secret leaks before they run.">
+<meta property="og:title" content="A practical guide to Claude Code hooks">
+<meta property="og:description" content="Block rm -rf, force-push and secret leaks in Claude Code with PreToolUse hooks. Real, copy-paste examples.">
+<link rel="canonical" href="https://goldnbones.github.io/claude-code-guardrails/guide-claude-code-hooks.html">
+<style>
+  :root{--bg:#0b0d10;--panel:#12161b;--line:#20262e;--text:#e6e9ee;--muted:#94a0ae;--accent:#f5a524;--accent2:#2dd4bf}
+  @media (prefers-color-scheme:light){:root{--bg:#fbfcfd;--panel:#fff;--line:#e4e8ec;--text:#141a1f;--muted:#54606c}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",Georgia,serif;padding-inline:16px}
+  .wrap{max-width:720px;margin:0 auto;padding-block:34px 70px}
+  a{color:var(--accent2)}
+  h1{font-size:clamp(26px,4.5vw,36px);line-height:1.2;letter-spacing:-.02em;margin:0 0 8px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .dek{color:var(--muted);font-size:18px;margin:0 0 22px}
+  h2{font-size:22px;margin:34px 0 10px;font-family:-apple-system,sans-serif;letter-spacing:-.01em}
+  h3{font-size:17px;margin:22px 0 6px;font-family:-apple-system,sans-serif}
+  p,li{color:var(--text)}
+  .muted{color:var(--muted)}
+  pre{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:13px 15px;overflow:auto;font:13.5px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:.92em}
+  p code,li code{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:0 4px}
+  .cta{display:block;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:9px;padding:16px 18px;margin:26px 0}
+  .cta a.b{display:inline-block;background:var(--accent);color:#111;font-weight:700;text-decoration:none;padding:9px 15px;border-radius:8px;margin-top:8px;font-family:-apple-system,sans-serif}
+  .toc{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px 16px;font-family:-apple-system,sans-serif;font-size:14.5px}
+  .toc a{display:block;padding:3px 0}
+  footer{color:var(--muted);font-size:13px;margin-top:40px;font-family:-apple-system,sans-serif}
+  hr{border:0;border-top:1px solid var(--line);margin:30px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<p class="muted" style="font-family:-apple-system,sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase">Claude Code · Guide</p>
+<h1>Claude Code hooks: stop the agent before it runs <code>rm&nbsp;-rf</code></h1>
+<p class="dek">A practical walkthrough of PreToolUse hooks, with copy-paste <code>settings.json</code> and Python you can drop into any project today.</p>
+
+<div class="toc">
+  <strong>On this page</strong>
+  <a href="#why">Why hooks, not prompts</a>
+  <a href="#contract">The hook contract</a>
+  <a href="#destructive">Blocking destructive commands</a>
+  <a href="#wire">Wiring it in settings.json</a>
+  <a href="#secrets">Blocking secret leaks</a>
+  <a href="#edge">The edge cases a naive version misses</a>
+</div>
+
+<h2 id="why">Why hooks, not just prompts</h2>
+<p>Claude Code decides which shell commands to run. You can ask it in <code>CLAUDE.md</code> to be careful, and it usually is. But "usually" is not a safety guarantee, and the failure mode is expensive: a wrong path in an <code>rm -rf</code>, a <code>git push --force</code> to <code>main</code>, a <code>git reset --hard</code> over uncommitted work. A prompt is advice. A hook is enforcement: it runs <em>before</em> the tool call and can refuse it outright.</p>
+
+<h2 id="contract">The hook contract</h2>
+<p>Claude Code fires a <strong>PreToolUse</strong> hook right before it executes a tool. The hook is any command. It receives a JSON object on <code>stdin</code>:</p>
+<pre><code>{
+  "session_id": "…",
+  "tool_name": "Bash",
+  "tool_input": { "command": "rm -rf ./build" }
+}</code></pre>
+<p>The exit code is the decision:</p>
+<ul>
+<li><strong>Exit 0</strong> — allow the tool call.</li>
+<li><strong>Exit 2</strong> — block it. Whatever the hook writes to <code>stderr</code> is shown to Claude, so it can read the reason and adapt.</li>
+</ul>
+<p>That is the whole mechanism. A safety hook is just a program that reads the command, decides, and sets its exit code.</p>
+
+<h2 id="destructive">Blocking destructive commands</h2>
+<p>Here is a minimal, dependency-free <code>guard-destructive.py</code>. It blocks the commands that most often cause real damage:</p>
+<pre><code>#!/usr/bin/env python3
+import json, re, sys
+
+RULES = [
+    (r"\brm\s+(-\w+\s+)*-\w*[rf]\w*\s+(-\w+\s+)*(/|~|\$HOME|\*)(\s|$)",
+     "recursive rm targeting root, home, or a wildcard"),
+    (r"git\s+push\s+.*(--force|-f)\b(?!-with-lease)",
+     "force-push (use --force-with-lease instead)"),
+    (r"git\s+reset\s+--hard|git\s+clean\s+-\w*f",
+     "git reset --hard / git clean -f wipes uncommitted work"),
+    (r"drop\s+(table|database)|truncate\s+table",
+     "destructive SQL"),
+    (r"(curl|wget)\s+[^|]*\|\s*(sudo\s+)?(ba)?sh",
+     "piping a downloaded script straight into a shell"),
+]
+
+def main():
+    try:
+        data = json.load(sys.stdin)
+    except Exception:
+        sys.exit(0)                      # fail open on malformed input
+    cmd = (data.get("tool_input") or {}).get("command", "")
+    for rx, why in RULES:
+        if re.search(rx, cmd, re.I):
+            sys.stderr.write(f"BLOCKED: {why}\n  command: {cmd[:200]}\n")
+            sys.exit(2)                  # 2 = block, stderr shown to Claude
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()</code></pre>
+<p>Save it to <code>.claude/hooks/guard-destructive.py</code> and make it executable with <code>chmod +x</code>.</p>
+
+<h2 id="wire">Wiring it in settings.json</h2>
+<p>Register the hook for the <code>Bash</code> tool in <code>.claude/settings.json</code>:</p>
+<pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/guard-destructive.py" }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+<p>Restart Claude Code, ask it to run <code>rm -rf /tmp/x /</code>, and watch it get refused with the reason. The <code>matcher</code> is a regex against the tool name, so <code>"Edit|Write"</code> would target file edits instead.</p>
+
+<div class="cta">
+<strong>Don't want to hand-roll this?</strong>
+<p class="muted" style="margin:6px 0">Generate a complete <code>.claude/</code> config, hooks, settings, CLAUDE.md, in your browser, free and no signup.</p>
+<a class="b" href="studio.html">Open the free Setup Studio →</a>
+</div>
+
+<h2 id="secrets">Blocking secret leaks</h2>
+<p>The same pattern guards file writes. A PreToolUse hook on <code>Edit|Write</code> can refuse to write anything that looks like a live credential:</p>
+<pre><code>PATTERNS = [
+    (r"AKIA[0-9A-Z]{16}", "AWS access key id"),
+    (r"-----BEGIN[ A-Z]*PRIVATE KEY-----", "private key block"),
+    (r"sk-[A-Za-z0-9]{20,}", "OpenAI-style secret key"),
+    (r"ghp_[A-Za-z0-9]{30,}", "GitHub token"),
+]</code></pre>
+<p>Read <code>tool_input.content</code> (for Write) or <code>tool_input.new_string</code> (for Edit), match against the patterns, and exit 2 on a hit. Now a hard-coded key never lands in a tracked file in the first place.</p>
+
+<h2 id="edge">The edge cases a naive version misses</h2>
+<p>The regex above is a good start, but a determined command slips past a single pattern. Real shells do things the naive version does not see:</p>
+<ul>
+<li><strong>Chained commands:</strong> <code>cd /tmp &amp;&amp; rm -rf ~</code> or <code>a; rm -rf /; b</code> — the dangerous part is buried in the middle.</li>
+<li><strong>Pipes and subshells:</strong> <code>echo x | (rm -rf /)</code>, <code>$(rm -rf ~)</code>, backticks.</li>
+<li><strong>Wrappers:</strong> <code>sudo -E rm -rf /</code>, <code>env X=1 rm …</code>, <code>xargs rm</code>, <code>bash -c "rm -rf /"</code>.</li>
+<li><strong>Quoting tricks</strong> that break a simple word match.</li>
+</ul>
+<p>Handling these means actually splitting the command on shell operators, unwrapping subshells and known wrappers, and resolving paths, rather than matching one line. That is the difference between a demo and something you trust on a real repo.</p>
+
+<div class="cta">
+<strong>The hardened version, done and tested.</strong>
+<p class="muted" style="margin:6px 0">The Guardrails &amp; Workflow Pack ships a <code>guard-destructive.py</code> that parses <code>&amp;&amp;</code>, <code>;</code>, pipes, subshells and <code>sudo -E</code>, plus a secrets guard, a changelog skill, a PR-review subagent, and a 400-case test suite so you can extend the rules with confidence.</p>
+<a class="b" href="https://whop.com/checkout/plan_vnoz7oa1DihSD">Get the pack — $19 →</a>
+&nbsp;<a href="https://github.com/goldnbones/claude-code-guardrails">or the free hook on GitHub</a>
+</div>
+
+<hr>
+<footer>By the <a href="https://github.com/goldnbones/claude-code-guardrails">Claude Code Guardrails</a> project. Not affiliated with Anthropic. Last updated September 2026.</footer>
+</div>
+</body>
+</html>
