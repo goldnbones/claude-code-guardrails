@@ -207,7 +207,7 @@ function settingsJson(){
   if(bashHooks.length)pre.push({matcher:"Bash",hooks:bashHooks});
   if(state.guards.secrets)pre.push({matcher:"Edit|Write|MultiEdit",hooks:[{type:"command",command:'python3 "$CLAUDE_PROJECT_DIR"/.claude/hooks/guard-secrets.py'}]});
   const s={hooks:{PreToolUse:pre}};
-  if(state.extras.testhook){const cmd=state.pm||DEFCMD[state.stack];s.hooks.PostToolUse=[{matcher:"Edit|Write|MultiEdit",hooks:[{type:"command",command:`echo 'Reminder: run \\`${cmd}\\` before finishing.' 1>&2`}]}];}
+  if(state.extras.testhook){const cmd=state.pm||DEFCMD[state.stack];s.hooks.PostToolUse=[{matcher:"Edit|Write|MultiEdit",hooks:[{type:"command",command:"echo 'Reminder: run "+cmd+" before finishing.' 1>&2"}]}];}
   return JSON.stringify(s,null,2);
 }
 function claudeMd(){
